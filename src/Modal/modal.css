@@ -1,0 +1,28 @@
+/* modal.css */
+
+.modal {
+  width: 100%;
+  max-width: 960px;
+  height: 540px;
+  background-color: rgb(184, 184, 184);
+  margin: 0 auto;
+  z-index: 500;
+  border-radius: 10px;
+}
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+}
+.modal-close {
+  position: absolute;
+  cursor: pointer;
+  right: 20%;
+  width: 48px;
+  height: 48px;
+  background-color: #6a5dc2;
+  border: none;
+  border-radius: 100%;
+  padding: 13px;
+}

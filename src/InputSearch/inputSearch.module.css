@@ -1,0 +1,13 @@
+.input {
+  width: 100%;
+  max-width: 550px;
+  padding: 10px 18px 10px 52px;
+  background-color: #393b3c;
+  background-image: url('../image/Vector.png');
+  background-repeat: no-repeat;
+  background-position: 18px;
+}
+.input::placeholder {
+  color: #ffffff 50%;
+  font-size: 18px;
+}

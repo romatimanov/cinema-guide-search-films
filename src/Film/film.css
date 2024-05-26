@@ -1,0 +1,28 @@
+.film-about {
+  padding: 40px 0;
+}
+.film-about__title {
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff;
+}
+.film-about__content {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.film-about__text {
+  color: #fff;
+  font-size: 18px;
+  white-space: nowrap;
+}
+.film-point {
+  color: #fff;
+}
+.film-about__side {
+  display: flex;
+  width: 400px;
+  overflow: hidden;
+  gap: 5px;
+}
