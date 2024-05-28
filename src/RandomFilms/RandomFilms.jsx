@@ -8,6 +8,7 @@ import random from '../image/random.png';
 import { CustomModal } from '../Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import { useTrailer } from '../TrailerProvider/TrailerProvider';
+import { TopFilms } from '../TopFilms/TopFilms';
 
 const fetchRandomFilm = async () => {
   const response = await fetch('https://cinemaguide.skillbox.cc/movie/random');
@@ -63,7 +64,9 @@ export function RandomFilms() {
                   {film.tmdbRating}
                 </span>
                 <p className="film-info__text">{film.releaseYear}</p>
-                <p className="film-info__text">{film.genres[0]}</p>
+                <p className="film-info__text">
+                  {film.genres?.[0] || 'Unknown Genre'}
+                </p>
                 <p className="film-info__text">
                   {hours} ч {remainingMinutes} мин
                 </p>
@@ -109,6 +112,7 @@ export function RandomFilms() {
           onClose={handleCloseModal}
         />
       )}{' '}
+      <TopFilms />
     </div>
   );
 }

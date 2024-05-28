@@ -1,21 +1,25 @@
 import './header.css';
 import logo from '../image/CinemaGuide.png';
 import { InputSearch } from '../InputSearch/InputSearch';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveLink } from '../redux/actions';
 
 export function Header() {
-  const [activeLink, setActiveLink] = useState('/');
+  const activeLink = useSelector((state) => state.activeLink);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleLinkClick = (path) => {
-    setActiveLink(path);
+    dispatch(setActiveLink(path));
     navigate(path);
   };
+
   return (
     <header className="header">
       <div className="container">
         <div className="header-content">
-          <div className="header-logo">
+          <div className="header-logo" onClick={() => handleLinkClick('/')}>
             <img src={logo} alt="logo" />
           </div>
           <nav className="header-nav">

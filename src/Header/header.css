@@ -35,7 +35,9 @@
   transition: border-bottom-color 0.3s;
   background: none;
 }
-
+.header-logo {
+  cursor: pointer;
+}
 .header-link__active {
   border-bottom-color: rgb(230, 0, 255);
 }

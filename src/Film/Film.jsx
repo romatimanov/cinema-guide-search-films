@@ -78,12 +78,10 @@ export function Film() {
             <h2 className="film-about__title">О Фильме</h2>
             <div className="film-about__content">
               <div className="film-about__side">
-                <div className="film-about__content">
-                  <p className="film-about__text">Язык оригинала</p>
-                  <span className="film-point">
-                    {Array(100).fill('.').join('')}
-                  </span>
-                </div>
+                <p className="film-about__text">Язык оригинала</p>
+                <span className="film-point">
+                  {Array(100).fill('.').join('')}
+                </span>
               </div>
               <p className="film-about__text">{language()}</p>
             </div>
@@ -94,7 +92,53 @@ export function Film() {
                   {Array(100).fill('.').join('')}
                 </span>
               </div>
-              <p className="film-about__text">1 руб</p>
+              <p className="film-about__text">
+                {filmData.budget ? filmData.budget : 'Неизвестно'}
+              </p>
+            </div>
+            <div className="film-about__content">
+              <div className="film-about__side">
+                <p className="film-about__text">Выручка</p>
+                <span className="film-point">
+                  {Array(100).fill('.').join('')}
+                </span>
+              </div>
+              <p className="film-about__text">
+                {filmData.revenue ? filmData.revenue : 'Неизвестно'}
+              </p>
+            </div>
+            <div className="film-about__content">
+              <div className="film-about__side">
+                <p className="film-about__text">Режиссер</p>
+                <span className="film-point">
+                  {Array(100).fill('.').join('')}
+                </span>
+              </div>
+              <p className="film-about__text">
+                {filmData.director ? filmData.director : 'Неизвестно'}
+              </p>
+            </div>
+            <div className="film-about__content">
+              <div className="film-about__side">
+                <p className="film-about__text">Продакшн</p>
+                <span className="film-point">
+                  {Array(100).fill('.').join('')}
+                </span>
+              </div>
+              <p className="film-about__text">
+                {filmData.production ? filmData.production : 'Неизвестно'}
+              </p>
+            </div>
+            <div className="film-about__content">
+              <div className="film-about__side">
+                <p className="film-about__text">Награды</p>
+                <span className="film-point">
+                  {Array(100).fill('.').join('')}
+                </span>
+              </div>
+              <p className="film-about__text">
+                {filmData.awardsSummary ? filmData.awardsSummary : 'Неизвестно'}
+              </p>
             </div>
           </div>
         </div>

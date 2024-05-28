@@ -1,0 +1,23 @@
+.genres-main {
+  text-align: center;
+}
+
+.genres-btn {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  cursor: pointer;
+  background: none;
+  outline: none;
+  border: none;
+  font-size: 48px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 64px;
+}
+.genres-btn__image {
+  margin-right: 30px;
+}
+.genre-film__content {
+  margin-bottom: 64px;
+}

@@ -8,8 +8,9 @@
 }
 .film-about__content {
   display: flex;
-  align-items: center;
+
   gap: 5px;
+  margin-bottom: 24px;
 }
 
 .film-about__text {
