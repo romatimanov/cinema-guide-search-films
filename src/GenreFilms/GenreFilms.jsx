@@ -4,14 +4,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import arrow from '../image/arrow.png';
 import { useState } from 'react';
 import { Button } from '../Button/Button';
+import { fetchAnsfer, fetchModule } from '../Module/Module';
 
-const fetchGenreFilms = async () => {
-  const response = await fetch('https://cinemaguide.skillbox.cc/movie');
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
-};
+const fetchGenreFilms = () =>
+  fetchModule('https://cinemaguide.skillbox.cc/movie');
 
 export function GenreFilms() {
   const { state } = useLocation();
@@ -25,20 +21,15 @@ export function GenreFilms() {
     isError,
   } = useQuery('genreFilms', fetchGenreFilms);
 
-  if (isLoading) {
-    return <div className="genres-main">Loading...</div>;
+  const loadingOrErrorElement = fetchAnsfer(isLoading, isError);
+  if (loadingOrErrorElement) {
+    return loadingOrErrorElement;
   }
-
-  if (isError) {
-    return <div className="genres-main">Error: Something went wrong</div>;
-  }
-
   const filteredFilms = genreFilms.filter((film) =>
     film.genres.includes(genre)
   );
 
   const loadMoreFilms = () => {
-    console.log('222');
     setDisplayedFilms((prevCount) => prevCount + 10);
   };
 

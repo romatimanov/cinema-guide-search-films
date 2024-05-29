@@ -1,6 +1,5 @@
 .input {
   width: 100%;
-  max-width: 550px;
   padding: 10px 18px 10px 52px;
   background-color: #393b3c;
   background-image: url('../image/Vector.png');
@@ -10,4 +9,60 @@
 .input::placeholder {
   color: #ffffff 50%;
   font-size: 18px;
+}
+.searchContent {
+  width: 100%;
+  position: relative;
+}
+.searchShow {
+  position: absolute;
+  display: none;
+  top: 65px;
+  width: 100%;
+  min-height: 115px;
+  background-color: #393b3c;
+  padding: 8px;
+}
+.searchActive {
+  display: block;
+}
+.filmItem {
+  cursor: pointer;
+  display: flex;
+  gap: 16px;
+  padding: 20px 8px;
+  border: 1px solid transparent;
+  transition: 0.3s all;
+}
+.filmItem:hover {
+  border: 1px solid #fff;
+}
+.filmPoster {
+  width: 40px;
+  height: 52px;
+}
+.filmInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.filmRating {
+  display: flex;
+  align-items: center;
+  padding: 3px 4px;
+  background-color: #308e21;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 16px;
+}
+.filmText {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+}
+.filmTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
 }

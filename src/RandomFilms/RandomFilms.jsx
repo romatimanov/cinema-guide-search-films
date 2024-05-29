@@ -9,14 +9,10 @@ import { CustomModal } from '../Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import { useTrailer } from '../TrailerProvider/TrailerProvider';
 import { TopFilms } from '../TopFilms/TopFilms';
+import { fetchAnsfer, fetchModule } from '../Module/Module';
 
-const fetchRandomFilm = async () => {
-  const response = await fetch('https://cinemaguide.skillbox.cc/movie/random');
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
-};
+const fetchRandomFilm = () =>
+  fetchModule('https://cinemaguide.skillbox.cc/movie/random');
 
 export function RandomFilms() {
   const {
@@ -41,12 +37,9 @@ export function RandomFilms() {
     refetch();
   };
 
-  if (isLoading) {
-    return <div className="films-main">Loading...</div>;
-  }
-
-  if (isError) {
-    return <div className="films-main">Error: Something went wrong</div>;
+  const loadingOrErrorElement = fetchAnsfer(isLoading, isError);
+  if (loadingOrErrorElement) {
+    return loadingOrErrorElement;
   }
 
   return (
@@ -61,7 +54,7 @@ export function RandomFilms() {
               <div className="film-info">
                 <span className="film-info__rating">
                   <img src={rating} alt="rating" />
-                  {film.tmdbRating}
+                  {film.tmdbRating.toFixed(1)}
                 </span>
                 <p className="film-info__text">{film.releaseYear}</p>
                 <p className="film-info__text">

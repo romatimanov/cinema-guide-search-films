@@ -1,18 +1,31 @@
+import React, { useState } from 'react';
 import './header.css';
 import logo from '../image/CinemaGuide.png';
 import { InputSearch } from '../InputSearch/InputSearch';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveLink } from '../redux/actions';
+import { Auth } from '../Auth/Auth';
 
 export function Header() {
+  const [isAuthModalOpen, setAuthModalOpen] = useState(false);
   const activeLink = useSelector((state) => state.activeLink);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userName = useSelector((state) => userData.name);
 
   const handleLinkClick = (path) => {
     dispatch(setActiveLink(path));
     navigate(path);
+  };
+
+  const handleAuthOpen = () => {
+    setAuthModalOpen(true);
+  };
+
+  const handleAuthClose = () => {
+    setAuthModalOpen(false);
   };
 
   return (
@@ -43,11 +56,16 @@ export function Header() {
             </ul>
             <InputSearch />
           </nav>
-          <a href="/logout" className="header-text">
-            Выйти
-          </a>
+          {userName ? (
+            <button className="header-btn">{userName}</button>
+          ) : (
+            <button className="header-btn" onClick={handleAuthOpen}>
+              Войти
+            </button>
+          )}
         </div>
       </div>
+      <Auth open={isAuthModalOpen} onClose={handleAuthClose} />
     </header>
   );
 }

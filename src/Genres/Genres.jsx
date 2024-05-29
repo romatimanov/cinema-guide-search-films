@@ -2,14 +2,10 @@ import { useQuery } from 'react-query';
 import { useState, useEffect } from 'react';
 import './Genres.css';
 import { useNavigate } from 'react-router-dom';
+import { fetchAnsfer, fetchModule } from '../Module/Module';
 
-const fetchGenres = async () => {
-  const response = await fetch('https://cinemaguide.skillbox.cc/movie/genres');
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
-};
+const fetchGenres = () =>
+  fetchModule('https://cinemaguide.skillbox.cc/movie/genres');
 
 export function Genres() {
   const { data: genres, isLoading, isError } = useQuery('genres', fetchGenres);
@@ -38,12 +34,9 @@ export function Genres() {
     }
   }, [genres]);
 
-  if (isLoading) {
-    return <div className="genres-main">Loading...</div>;
-  }
-
-  if (isError) {
-    return <div className="genres-main">Error: Something went wrong</div>;
+  const loadingOrErrorElement = fetchAnsfer(isLoading, isError);
+  if (loadingOrErrorElement) {
+    return loadingOrErrorElement;
   }
 
   return (

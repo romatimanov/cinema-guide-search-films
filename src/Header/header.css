@@ -41,3 +41,10 @@
 .header-link__active {
   border-bottom-color: rgb(230, 0, 255);
 }
+.header-btn {
+  font-size: 24px;
+  color: #fff;
+  border: none;
+  background: none;
+  outline: none;
+}
