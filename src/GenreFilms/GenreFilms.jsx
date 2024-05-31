@@ -25,6 +25,7 @@ export function GenreFilms() {
   if (loadingOrErrorElement) {
     return loadingOrErrorElement;
   }
+
   const filteredFilms = genreFilms.filter((film) =>
     film.genres.includes(genre)
   );

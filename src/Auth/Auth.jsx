@@ -15,7 +15,7 @@ const StyledModal = styled(Modal)`
   z-index: 400;
 `;
 
-export function Auth({ open, onClose }) {
+export function Auth({ open, onClose, updateProfileData }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState(false);
@@ -48,22 +48,29 @@ export function Auth({ open, onClose }) {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-              email,
-              password,
-            }),
+            body: JSON.stringify({ email, password }),
+            credentials: 'include',
           }
         );
 
         if (response.ok) {
           console.log('User logged in successfully!');
-          const userData = JSON.parse(localStorage.getItem('userData'));
-          if (userData && userData.email === email) {
-            console.log(`Welcome back, ${userData.name}!`);
+          const profileResponse = await fetch(
+            'https://cinemaguide.skillbox.cc/profile',
+            {
+              credentials: 'include',
+            }
+          );
+          if (profileResponse.ok) {
+            const profile = await profileResponse.json();
+            updateProfileData(profile);
           }
-          onClose();
         } else {
-          console.error('Failed to log in user');
+          console.error(
+            'Failed to log in user:',
+            response.status,
+            response.statusText
+          );
         }
       } catch (error) {
         console.error('Error:', error);

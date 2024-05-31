@@ -5,6 +5,8 @@
   background-image: url('../image/Vector.png');
   background-repeat: no-repeat;
   background-position: 18px;
+  border: none;
+  outline: none;
 }
 .input::placeholder {
   color: #ffffff 50%;

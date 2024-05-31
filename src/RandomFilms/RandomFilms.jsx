@@ -1,15 +1,21 @@
-// random.j
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import './RandomFilms.css';
 import rating from '../image/rating.png';
 import favorite from '../image/favorite.png';
+import favoriteActive from '../image/favorite-active.png';
 import random from '../image/random.png';
 import { CustomModal } from '../Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import { useTrailer } from '../TrailerProvider/TrailerProvider';
 import { TopFilms } from '../TopFilms/TopFilms';
-import { fetchAnsfer, fetchModule } from '../Module/Module';
+import {
+  fetchAnsfer,
+  fetchModule,
+  fetchProfileData,
+  handleFavoriteClick,
+} from '../Module/Module';
+import { useDispatch } from 'react-redux';
 
 const fetchRandomFilm = () =>
   fetchModule('https://cinemaguide.skillbox.cc/movie/random');
@@ -22,6 +28,22 @@ export function RandomFilms() {
     handleCloseModal,
   } = useTrailer();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [favoritesResult, setFavoritesResult] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const profileData = await fetchProfileData();
+        setFavoritesResult(profileData.favorites);
+      } catch (error) {
+        console.error('Failed to fetch profile data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const {
     data: film,
@@ -83,8 +105,19 @@ export function RandomFilms() {
                   О фильме
                 </button>
 
-                <button className="film-btn film-btn__min">
-                  <img src={favorite} alt="favorite" />
+                <button
+                  className={`film-btn film-btn__min`}
+                  onClick={() => handleFavoriteClick(film, dispatch)}
+                >
+                  <img
+                    className="favorite-icon"
+                    src={
+                      favoritesResult.includes(film.id.toString())
+                        ? favoriteActive
+                        : favorite
+                    }
+                    alt="favorite"
+                  />
                 </button>
                 <button
                   className="film-btn film-btn__min"
@@ -104,7 +137,7 @@ export function RandomFilms() {
           trailerUrl={selectedTrailerUrl}
           onClose={handleCloseModal}
         />
-      )}{' '}
+      )}
       <TopFilms />
     </div>
   );

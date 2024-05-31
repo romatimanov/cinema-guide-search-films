@@ -42,9 +42,15 @@
   border-bottom-color: rgb(230, 0, 255);
 }
 .header-btn {
+  cursor: pointer;
   font-size: 24px;
   color: #fff;
   border: none;
   background: none;
   outline: none;
+  border-bottom: 1px solid transparent;
+  transition: 0.3s all;
+}
+.header-btn:hover {
+  border-bottom-color: rgb(230, 0, 255);
 }

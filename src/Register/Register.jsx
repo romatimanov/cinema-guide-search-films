@@ -68,7 +68,6 @@ export function Register({ open, onClose }) {
 
         if (response.ok) {
           console.log('User registered successfully!');
-          localStorage.setItem('userData', JSON.stringify({ name, email }));
           onClose();
         } else {
           console.error('Failed to register user');

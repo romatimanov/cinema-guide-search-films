@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CustomModal } from '../Modal/Modal';
 import favorite from '../image/favorite.png';
+import favoriteActive from '../image/favorite-active.png';
 import rating from '../image/rating.png';
 import { useTrailer } from '../TrailerProvider/TrailerProvider';
+import { useDispatch } from 'react-redux';
 import './film.css';
+import { fetchData, handleFavoriteClick } from '../Module/Module';
 
 export function Film() {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { filmData } = location.state;
+
+  const [favoritesResult, setFavoritesResult] = useState([]);
+
+  useEffect(() => {
+    fetchData(setFavoritesResult);
+  }, []);
+
   const {
     showTrailerModal,
     selectedTrailerUrl,
@@ -20,11 +32,10 @@ export function Film() {
     navigate('/');
     return null;
   }
-  const { filmData } = location.state;
 
   function language() {
     let translatedText;
-    console.log(filmData.language);
+
     switch (filmData.language) {
       case 'de':
         translatedText = 'German';
@@ -67,8 +78,26 @@ export function Film() {
               >
                 Трейлер
               </button>
-              <button className="film-btn film-btn__min">
-                <img src={favorite} alt="favorite" />
+              <button
+                className={`film-btn film-btn__min`}
+                onClick={() => {
+                  handleFavoriteClick(filmData, dispatch);
+                  setFavoritesResult((prevFavorites) => {
+                    const newFavorites = [...prevFavorites];
+                    newFavorites.push(filmData.id.toString());
+                    return newFavorites;
+                  });
+                }}
+              >
+                <img
+                  className="favorite-icon"
+                  src={
+                    favoritesResult.includes(filmData.id.toString())
+                      ? favoriteActive
+                      : favorite
+                  }
+                  alt="favorite"
+                />
               </button>
             </div>
           </div>

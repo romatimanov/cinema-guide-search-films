@@ -71,9 +71,13 @@
   transition: 0.3s all;
 }
 .film-btn__min {
-  padding: 19px 18px;
+  padding: 18px;
 }
 
 .film-btn:hover {
   background-color: #6a5dc2;
+}
+.favorite-icon {
+  width: 24px;
+  height: 24px;
 }

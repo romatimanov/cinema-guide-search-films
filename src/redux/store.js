@@ -1,11 +1,11 @@
-// store.js
 import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducer';
+import { rootReducer } from './reducer';
 
 const saveToLocalStorage = (store) => (next) => (action) => {
   const result = next(action);
   const state = store.getState();
   localStorage.setItem('activeLink', state.activeLink);
+  localStorage.setItem('favorites', JSON.stringify(state.favorites));
   return result;
 };
 

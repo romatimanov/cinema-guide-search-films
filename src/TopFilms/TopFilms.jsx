@@ -1,14 +1,10 @@
 import { useQuery } from 'react-query';
 import './TopFilms.css';
 import { useNavigate } from 'react-router-dom';
+import { fetchAnsfer, fetchModule } from '../Module/Module';
 
-const fetchTopFilms = async () => {
-  const response = await fetch('https://cinemaguide.skillbox.cc/movie/top10');
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
-};
+const fetchTopFilms = () =>
+  fetchModule('https://cinemaguide.skillbox.cc/movie/top10');
 
 export function TopFilms() {
   const {
@@ -19,12 +15,9 @@ export function TopFilms() {
 
   const navigate = useNavigate();
 
-  if (isLoading) {
-    return <div className="top-content">Loading...</div>;
-  }
-
-  if (isError) {
-    return <div className="top-content">Error: Something went wrong</div>;
+  const loadingOrErrorElement = fetchAnsfer(isLoading, isError);
+  if (loadingOrErrorElement) {
+    return loadingOrErrorElement;
   }
 
   return (

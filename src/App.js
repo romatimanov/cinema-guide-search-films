@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Genres } from './Genres/Genres';
 import { GenreFilms } from './GenreFilms/GenreFilms';
+import { Profile } from './Profile/Profile';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/films" element={<Film />} />
           <Route path="/genres" element={<Genres />} />
           <Route path="/genreFilms" element={<GenreFilms />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/" element={<RandomFilms />} />
         </Routes>
       </Router>
