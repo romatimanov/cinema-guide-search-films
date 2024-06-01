@@ -5,7 +5,8 @@ import { useQuery } from 'react-query';
 import { useEffect, useState } from 'react';
 import close from '../image/close-bl.png';
 import { ProfileSettings } from '../ProfileSettings/ProfileSettings';
-
+import { ReactComponent as UserIcon } from '../image/user.svg';
+import { ReactComponent as FavoriteIcon } from '../image/favorite.svg';
 const fetchFavoriteFilms = () =>
   fetchModule('https://cinemaguide.skillbox.cc/movie');
 
@@ -61,12 +62,14 @@ export function Profile() {
             className={`profile-btn ${activeButton === 'Избранные фильмы' ? 'profile-btn__active' : ''}`}
             onClick={() => setActiveButton('Избранные фильмы')}
           >
+            <FavoriteIcon className="profile-icon" />
             Избранные фильмы
           </button>
           <button
             className={`profile-btn ${activeButton === 'Настройка аккаунта' ? 'profile-btn__active' : ''}`}
             onClick={() => setActiveButton('Настройка аккаунта')}
           >
+            <UserIcon className="profile-icon" />
             Настройка аккаунта
           </button>
         </div>

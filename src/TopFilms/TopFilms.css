@@ -11,6 +11,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
   gap: 64px 40px;
+  @media (max-width: 790px) {
+    display: block;
+    height: 350px;
+  }
 }
 .top-poster {
   position: relative;
@@ -40,4 +44,11 @@
   font-weight: 700;
   color: #6a5dc2;
   text-align: center;
+}
+.slick-slide {
+  width: 224px !important;
+  margin-right: 40px;
+}
+.slick-list {
+  overflow: visible !important;
 }

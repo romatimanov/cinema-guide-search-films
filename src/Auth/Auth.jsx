@@ -5,6 +5,7 @@ import close from '../image/close-bl.png';
 import logo from '../image/logo-modal.png';
 import './auth.css';
 import { ReactComponent as MailIcon } from '../image/mail.svg';
+import { ReactComponent as PassIcon } from '../image/pass.svg';
 import { Button } from '../Button/Button';
 import { Register } from '../Register/Register';
 
@@ -54,7 +55,6 @@ export function Auth({ open, onClose, updateProfileData }) {
         );
 
         if (response.ok) {
-          console.log('User logged in successfully!');
           const profileResponse = await fetch(
             'https://cinemaguide.skillbox.cc/profile',
             {
@@ -106,7 +106,7 @@ export function Auth({ open, onClose, updateProfileData }) {
                 />
               </div>
               <div className="input-wrapper">
-                <MailIcon
+                <PassIcon
                   className={`auth-icon ${passwordError ? 'error-icon' : ''}`}
                 />
                 <input
@@ -118,7 +118,7 @@ export function Auth({ open, onClose, updateProfileData }) {
                   onChange={handlePasswordChange}
                 />
               </div>
-              <Button text={'Login'} type="submit" />
+              <Button text={'Войти'} type="submit" />
             </form>
             <button
               className="auth-register"
@@ -126,7 +126,7 @@ export function Auth({ open, onClose, updateProfileData }) {
                 handleOpenRegister();
               }}
             >
-              Register
+              Регистрация
             </button>
             <button className="auth-close" onClick={onClose}>
               <img src={close} alt="close" />

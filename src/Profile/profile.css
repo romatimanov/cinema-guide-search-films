@@ -35,6 +35,9 @@
   gap: 64px;
 }
 .profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   cursor: pointer;
   border: none;
   outline: none;
@@ -47,4 +50,8 @@
 }
 .profile-btn__active {
   border-bottom: 1px solid #dc5dfc;
+}
+.profile-icon path {
+  fill: #fff;
+  fill-opacity: 1;
 }

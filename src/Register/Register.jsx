@@ -5,6 +5,8 @@ import { styled } from '@mui/system';
 import close from '../image/close-bl.png';
 import logo from '../image/logo-modal.png';
 import { ReactComponent as MailIcon } from '../image/mail.svg';
+import { ReactComponent as PassIcon } from '../image/pass.svg';
+import { ReactComponent as UserIcon } from '../image/user.svg';
 import { Button } from '../Button/Button';
 
 const StyledModal = styled(Modal)`
@@ -100,7 +102,7 @@ export function Register({ open, onClose }) {
               />
             </div>
             <div className="input-wrapper">
-              <MailIcon
+              <UserIcon
                 className={`auth-icon ${errors.name ? 'error-icon' : ''}`}
               />
               <input
@@ -113,7 +115,7 @@ export function Register({ open, onClose }) {
               />
             </div>
             <div className="input-wrapper">
-              <MailIcon
+              <UserIcon
                 className={`auth-icon ${errors.surname ? 'error-icon' : ''}`}
               />
               <input
@@ -126,7 +128,7 @@ export function Register({ open, onClose }) {
               />
             </div>
             <div className="input-wrapper">
-              <MailIcon
+              <PassIcon
                 className={`auth-icon ${errors.password ? 'error-icon' : ''}`}
               />
               <input
@@ -138,7 +140,7 @@ export function Register({ open, onClose }) {
                 onChange={handleChange}
               />
             </div>
-            <Button text={'Register'} type="submit" />
+            <Button text={'Создать аккаунт'} type="submit" />
             <button className="auth-close" onClick={onClose}>
               <img src={close} alt="close" />
             </button>

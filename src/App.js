@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Genres } from './Genres/Genres';
 import { GenreFilms } from './GenreFilms/GenreFilms';
 import { Profile } from './Profile/Profile';
+import { Footer } from './Footer/Footer';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/" element={<RandomFilms />} />
         </Routes>
+        <Footer />
       </Router>
     </Provider>
   );

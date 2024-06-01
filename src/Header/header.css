@@ -5,6 +5,9 @@
   width: 100%;
   background-color: #000000d8;
   padding: 24px 0;
+  @media (max-width: 790px) {
+    position: relative;
+  }
 }
 .header-content {
   display: flex;
@@ -17,6 +20,9 @@
   display: flex;
   align-items: center;
   gap: 40px;
+  @media (max-width: 790px) {
+    display: none;
+  }
 }
 .header-list {
   display: flex;
@@ -53,4 +59,12 @@
 }
 .header-btn:hover {
   border-bottom-color: rgb(230, 0, 255);
+}
+.header-icon {
+  width: 16px;
+  height: 21px;
+}
+.header-icon path {
+  fill: #fff;
+  fill-opacity: 1;
 }
