@@ -1,5 +1,8 @@
 .top-content {
   padding: 40px 0;
+  @media (max-width: 790px) {
+    overflow: hidden;
+  }
 }
 .top-title {
   font-size: 40px;
@@ -23,9 +26,14 @@
   box-shadow: 0px 0px 80px 0px #ffffff54;
   border-radius: 15px;
   transition: 0.3s all;
+  @media (max-width: 790px) {
+    height: 336px;
+  }
 }
 .top-poster:hover {
-  transform: scale(1.03);
+  @media (min-width: 920px) {
+    transform: scale(1.03);
+  }
 }
 .top-poster__image {
   width: 100%;
@@ -47,7 +55,9 @@
 }
 .slick-slide {
   width: 224px !important;
-  margin-right: 40px;
+  height: 336px !important;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 .slick-list {
   overflow: visible !important;

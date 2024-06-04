@@ -45,7 +45,7 @@ export function GenreFilms() {
           {filteredFilms.slice(0, displayedFilms).map((film) => (
             <article
               key={film.id}
-              className="top-poster"
+              className="top-poster genres-poster"
               onClick={() => navigate('/films', { state: { filmData: film } })}
             >
               <img

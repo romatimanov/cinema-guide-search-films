@@ -1,33 +1,30 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './header.css';
 import logo from '../image/CinemaGuide.png';
+import search from '../image/search-mobile.png';
 import { InputSearch } from '../InputSearch/InputSearch';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveLink, setLoginStatus } from '../redux/actions';
 import { Auth } from '../Auth/Auth';
-import { fetchProfileData } from '../Module/Module';
-import { ReactComponent as UserIcon } from '../image/user.svg';
+import { fetchProfileData, windosSize } from '../Module/Module';
+import user from '../image/user.png';
+import menu from '../image/menu.png';
+
 export function Header() {
   const [isAuthModalOpen, setAuthModalOpen] = useState(false);
   const [profileData, setProfileData] = useState(null);
+  const [isSearchVisible, setSearchVisible] = useState(false);
   const activeLink = useSelector((state) => state.activeLink);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const searchRef = useRef(null);
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    windosSize(setWindowWidth);
   }, []);
 
   useEffect(() => {
@@ -37,6 +34,19 @@ export function Header() {
       dispatch(setLoginStatus(JSON.parse(storedLoginStatus)));
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setSearchVisible(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleLinkClick = (path) => {
     dispatch(setActiveLink(path));
@@ -55,6 +65,10 @@ export function Header() {
     setProfileData(newProfileData);
     setAuthModalOpen(false);
     dispatch(setLoginStatus(true));
+  };
+
+  const toggleSearchVisibility = () => {
+    setSearchVisible(!isSearchVisible);
   };
 
   return (
@@ -87,27 +101,43 @@ export function Header() {
                 </button>
               </li>
             </ul>
-            <InputSearch />
+            {windowWidth >= 790 && <InputSearch />}
           </nav>
-          {isLoggedIn ? (
+          <div className="header-mobile">
             <button
-              className={`header-link header-text ${
-                activeLink === '/profile' ? 'header-link__active' : ''
-              }`}
-              onClick={() => handleLinkClick('/profile')}
+              className="header-nav__icon"
+              onClick={() => handleLinkClick('/genres')}
             >
-              {windowWidth < 790 ? (
-                <UserIcon className="header-icon" />
-              ) : (
-                'Профиль'
-              )}
+              <img src={menu} alt="menu" />
             </button>
-          ) : (
-            <button className="header-btn" onClick={handleAuthOpen}>
-              Войти
+            <button
+              className="header-nav__icon"
+              onClick={toggleSearchVisibility}
+            >
+              <img src={search} alt="search" />
             </button>
-          )}
+
+            {isLoggedIn ? (
+              <button
+                className={`header-link header-text ${
+                  activeLink === '/profile' ? 'header-link__active' : ''
+                }`}
+                onClick={() => handleLinkClick('/profile')}
+              >
+                {windowWidth < 790 ? <img src={user} alt="user" /> : 'Профиль'}
+              </button>
+            ) : (
+              <button className="header-btn" onClick={handleAuthOpen}>
+                {windowWidth < 790 ? <img src={user} alt="user" /> : 'Войти'}
+              </button>
+            )}
+          </div>
         </div>
+        {isSearchVisible && (
+          <div ref={searchRef}>
+            <InputSearch />
+          </div>
+        )}
       </div>
 
       <Auth

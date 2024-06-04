@@ -68,10 +68,10 @@ export function TopFilms() {
 }
 
 const sliderSettings = {
-  dots: true,
-  infinite: true,
+  dots: false,
+  infinite: false,
   arrows: false,
   speed: 500,
-  slidesToShow: 1.5,
-  slidesToScroll: 1.5,
+  slidesToShow: 1,
+  slidesToScroll: 1,
 };

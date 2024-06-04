@@ -1,11 +1,17 @@
 .profile-main {
   padding-top: 160px;
+  @media (max-width: 790px) {
+    padding-top: 0;
+  }
 }
 .profile-title {
   font-size: 48px;
   font-weight: 700;
   color: #fff;
   margin-bottom: 64px;
+  @media (max-width: 790px) {
+    font-size: 24px;
+  }
 }
 .poster-delete {
   position: absolute;
@@ -33,6 +39,9 @@
   display: flex;
   align-items: center;
   gap: 64px;
+  @media (max-width: 790px) {
+    gap: 24px;
+  }
 }
 .profile-btn {
   display: flex;
@@ -42,6 +51,7 @@
   border: none;
   outline: none;
   font-size: 24px;
+  font-weight: 400;
   color: #fff;
   background: none;
   margin-bottom: 64px;

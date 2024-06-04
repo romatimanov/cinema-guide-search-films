@@ -7,7 +7,12 @@
   background-position: 18px;
   border: none;
   outline: none;
+  @media (max-width: 790px) {
+    position: absolute;
+    top: -37px;
+  }
 }
+
 .input::placeholder {
   color: #ffffff 50%;
   font-size: 18px;
@@ -24,6 +29,9 @@
   min-height: 115px;
   background-color: #393b3c;
   padding: 8px;
+  @media (max-width: 790px) {
+    top: 22px;
+  }
 }
 .searchActive {
   display: block;

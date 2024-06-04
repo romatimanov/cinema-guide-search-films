@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CustomModal } from '../Modal/Modal';
@@ -99,11 +100,14 @@ export function Film() {
           style={{ backgroundImage: `url(${filmData.backdropUrl})` }}
         >
           <div className="container film-container">
+            <div className="film-mobile__img">
+              <img src={filmData.backdropUrl} alt="poster" />
+            </div>
             <div className="film-main">
               <div className="film-info">
                 <span className="film-info__rating">
                   <img src={rating} alt="rating" />
-                  {filmData.tmdbRating}
+                  {filmData.tmdbRating.toFixed(1)}
                 </span>
                 <p className="film-info__text">{filmData.releaseYear}</p>
                 <p className="film-info__text">{filmData.genres[0]}</p>

@@ -1,12 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import './profile.css';
-import { fetchAnsfer, fetchData, fetchModule } from '../Module/Module';
+import {
+  fetchAnsfer,
+  fetchData,
+  fetchModule,
+  windosSize,
+} from '../Module/Module';
 import { useQuery } from 'react-query';
 import { useEffect, useState } from 'react';
 import close from '../image/close-bl.png';
 import { ProfileSettings } from '../ProfileSettings/ProfileSettings';
 import { ReactComponent as UserIcon } from '../image/user.svg';
 import { ReactComponent as FavoriteIcon } from '../image/favorite.svg';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { useMediaQuery } from 'react-responsive';
+import Slider from 'react-slick';
+
 const fetchFavoriteFilms = () =>
   fetchModule('https://cinemaguide.skillbox.cc/movie');
 
@@ -21,6 +31,11 @@ export function Profile() {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState('Избранные фильмы');
   const [favoritesResult, setFavoritesResult] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isMobile = useMediaQuery({ maxWidth: 790 });
+  useEffect(() => {
+    windosSize(setWindowWidth);
+  }, []);
 
   useEffect(() => {
     fetchData(setFavoritesResult);
@@ -53,6 +68,33 @@ export function Profile() {
     }
   };
 
+  const renderFilms = () => {
+    return favoriteFilms.map((film, index) => {
+      return (
+        <article
+          key={film.id}
+          className="top-poster"
+          onClick={() => navigate('/films', { state: { filmData: film } })}
+        >
+          <button
+            className="poster-delete"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleRemoveFromFavorites(film.id);
+            }}
+          >
+            <img src={close} alt="delete" />
+          </button>
+          <img
+            className="top-poster__image"
+            src={film.posterUrl}
+            alt="poster"
+          />
+        </article>
+      );
+    });
+  };
+
   return (
     <div className="profile-main">
       <div className="container">
@@ -63,45 +105,24 @@ export function Profile() {
             onClick={() => setActiveButton('Избранные фильмы')}
           >
             <FavoriteIcon className="profile-icon" />
-            Избранные фильмы
+            {windowWidth < 790 ? 'Избранное' : 'Избранные фильмы'}
           </button>
           <button
             className={`profile-btn ${activeButton === 'Настройка аккаунта' ? 'profile-btn__active' : ''}`}
             onClick={() => setActiveButton('Настройка аккаунта')}
           >
             <UserIcon className="profile-icon" />
-            Настройка аккаунта
+            {windowWidth < 790 ? 'Настройки' : '  Настройка аккаунта'}
           </button>
         </div>
         <div className="profile-content">
           {activeButton === 'Избранные фильмы' ? (
             <div className="top-main">
-              {favoriteFilms.map((film, index) => {
-                return (
-                  <article
-                    key={film.id}
-                    className="top-poster"
-                    onClick={() =>
-                      navigate('/films', { state: { filmData: film } })
-                    }
-                  >
-                    <button
-                      className="poster-delete"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleRemoveFromFavorites(film.id);
-                      }}
-                    >
-                      <img src={close} alt="delete" />
-                    </button>
-                    <img
-                      className="top-poster__image"
-                      src={film.posterUrl}
-                      alt="poster"
-                    />
-                  </article>
-                );
-              })}
+              {isMobile ? (
+                <Slider {...sliderSettings}>{renderFilms()}</Slider>
+              ) : (
+                renderFilms()
+              )}
             </div>
           ) : (
             <ProfileSettings />
@@ -111,3 +132,12 @@ export function Profile() {
     </div>
   );
 }
+
+const sliderSettings = {
+  dots: false,
+  infinite: false,
+  arrows: false,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+};

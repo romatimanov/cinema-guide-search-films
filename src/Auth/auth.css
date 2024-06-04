@@ -1,4 +1,5 @@
 .auth-modal {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -9,18 +10,23 @@
   z-index: 500;
   border-radius: 10px;
   padding: 64px 40px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 .auth-close {
   position: absolute;
   cursor: pointer;
-  top: 6%;
-  right: 33%;
+  top: 0;
+  right: -16%;
   width: 48px;
   height: 48px;
   background-color: #fff;
   border: none;
   border-radius: 100%;
   padding: 13px;
+  @media (max-width: 790px) {
+    right: 0;
+  }
 }
 .auth-logo {
   display: flex;
@@ -64,4 +70,15 @@
   border: none;
   background: none;
   margin-top: 24px;
+}
+.success-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.success-text {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
 }

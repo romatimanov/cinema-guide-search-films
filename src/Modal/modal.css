@@ -8,6 +8,11 @@
   margin: 0 auto;
   z-index: 500;
   border-radius: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  @media (max-width: 790px) {
+    height: 212px;
+  }
 }
 iframe {
   width: 100%;
@@ -25,4 +30,7 @@ iframe {
   border: none;
   border-radius: 100%;
   padding: 13px;
+  @media (max-width: 790px) {
+    display: none;
+  }
 }

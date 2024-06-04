@@ -135,7 +135,10 @@ export function Auth({ open, onClose, updateProfileData }) {
         </Fade>
       </StyledModal>
       {registerOpen && (
-        <Register open={registerOpen} onClose={() => setRegisterOpen(false)} />
+        <Register
+          openRegister={registerOpen}
+          onCloseRegister={() => setRegisterOpen(false)}
+        />
       )}
     </>
   );

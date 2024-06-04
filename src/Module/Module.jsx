@@ -68,3 +68,15 @@ export const fetchData = async (setFavoritesResult) => {
     console.error('Failed to fetch profile data:', error);
   }
 };
+
+export function windosSize(setWindowWidth) {
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  window.addEventListener('resize', handleResize);
+
+  return () => {
+    window.removeEventListener('resize', handleResize);
+  };
+}
