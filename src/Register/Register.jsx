@@ -7,7 +7,6 @@ import { ReactComponent as MailIcon } from '../image/mail.svg';
 import { ReactComponent as PassIcon } from '../image/pass.svg';
 import { ReactComponent as UserIcon } from '../image/user.svg';
 import { Button } from '../Button/Button';
-import { RegisterSuccess } from './RegisterSuccess';
 
 const StyledModal = styled(Modal)`
   display: flex;
@@ -16,7 +15,12 @@ const StyledModal = styled(Modal)`
   z-index: 400;
 `;
 
-export function Register({ openRegister, onCloseRegister }) {
+export function Register({
+  openRegister,
+  onCloseRegister,
+  openAuthModal,
+  openAuthSuccess,
+}) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -29,8 +33,6 @@ export function Register({ openRegister, onCloseRegister }) {
     name: false,
     surname: false,
   });
-
-  const [registerSuccessOpen, setRegisterSuccessOpen] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -82,88 +84,86 @@ export function Register({ openRegister, onCloseRegister }) {
     }
   };
 
+  const handleAuth = () => {
+    onCloseRegister();
+    openAuthModal();
+  };
+
   const handleSuccess = () => {
-    setRegisterSuccessOpen(true);
-    setTimeout(() => {
-      onCloseRegister(true);
-    }, 2500);
+    onCloseRegister();
+    openAuthSuccess();
   };
 
   return (
-    <>
-      <StyledModal open={openRegister} onClose={onCloseRegister}>
-        <Fade in={openRegister}>
-          <div className="auth-modal">
-            <div className="auth-logo">
-              <img src={logo} alt="logo" />
-            </div>
-            <form className="form-auth" onSubmit={handleRegister}>
-              <div className="input-wrapper">
-                <MailIcon
-                  className={`auth-icon ${errors.email ? 'error-icon' : ''}`}
-                />
-                <input
-                  className={`auth-input ${errors.email ? 'error' : ''}`}
-                  type="text"
-                  placeholder="Email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="input-wrapper">
-                <UserIcon
-                  className={`auth-icon ${errors.name ? 'error-icon' : ''}`}
-                />
-                <input
-                  className={`auth-input ${errors.name ? 'error' : ''}`}
-                  type="text"
-                  placeholder="Name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="input-wrapper">
-                <UserIcon
-                  className={`auth-icon ${errors.surname ? 'error-icon' : ''}`}
-                />
-                <input
-                  className={`auth-input ${errors.surname ? 'error' : ''}`}
-                  type="text"
-                  placeholder="Surname"
-                  name="surname"
-                  value={formData.surname}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="input-wrapper">
-                <PassIcon
-                  className={`auth-icon ${errors.password ? 'error-icon' : ''}`}
-                />
-                <input
-                  className={`auth-input ${errors.password ? 'error' : ''}`}
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-              </div>
-              <Button text={'Создать аккаунт'} type="submit" />
-              <button className="auth-close" onClick={onCloseRegister}>
-                <img src={close} alt="close" />
-              </button>
-            </form>
+    <StyledModal open={openRegister} onClose={onCloseRegister}>
+      <Fade in={openRegister}>
+        <div className="auth-modal">
+          <div className="auth-logo">
+            <img src={logo} alt="logo" />
           </div>
-        </Fade>
-      </StyledModal>
-      {registerSuccessOpen && (
-        <RegisterSuccess
-          openSucces={registerSuccessOpen}
-          onCloseSuccess={() => setRegisterSuccessOpen(false)}
-        />
-      )}
-    </>
+          <form className="form-auth" onSubmit={handleRegister}>
+            <div className="input-wrapper">
+              <MailIcon
+                className={`auth-icon ${errors.email ? 'error-icon' : ''}`}
+              />
+              <input
+                className={`auth-input ${errors.email ? 'error' : ''}`}
+                type="text"
+                placeholder="Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="input-wrapper">
+              <UserIcon
+                className={`auth-icon ${errors.name ? 'error-icon' : ''}`}
+              />
+              <input
+                className={`auth-input ${errors.name ? 'error' : ''}`}
+                type="text"
+                placeholder="Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="input-wrapper">
+              <UserIcon
+                className={`auth-icon ${errors.surname ? 'error-icon' : ''}`}
+              />
+              <input
+                className={`auth-input ${errors.surname ? 'error' : ''}`}
+                type="text"
+                placeholder="Surname"
+                name="surname"
+                value={formData.surname}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="input-wrapper">
+              <PassIcon
+                className={`auth-icon ${errors.password ? 'error-icon' : ''}`}
+              />
+              <input
+                className={`auth-input ${errors.password ? 'error' : ''}`}
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </div>
+            <Button text={'Создать аккаунт'} type="submit" />
+            <button className="register-pass__btn" onClick={() => handleAuth()}>
+              У меня есть пороль
+            </button>
+            <button className="auth-close" onClick={onCloseRegister}>
+              <img src={close} alt="close" />
+            </button>
+          </form>
+        </div>
+      </Fade>
+    </StyledModal>
   );
 }

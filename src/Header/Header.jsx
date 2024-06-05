@@ -11,9 +11,13 @@ import { Auth } from '../Auth/Auth';
 import { fetchProfileData, windosSize } from '../Module/Module';
 import user from '../image/user.png';
 import menu from '../image/menu.png';
+import { Register } from '../Register/Register';
+import { RegisterSuccess } from '../Register/RegisterSuccess';
 
 export function Header() {
   const [isAuthModalOpen, setAuthModalOpen] = useState(false);
+  const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+  const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [isSearchVisible, setSearchVisible] = useState(false);
   const activeLink = useSelector((state) => state.activeLink);
@@ -53,12 +57,31 @@ export function Header() {
     navigate(path);
   };
 
-  const handleAuthOpen = () => {
+  const openRegisterModal = () => {
+    setAuthModalOpen(false);
+    setRegisterModalOpen(true);
+  };
+
+  const openAuthModal = () => {
+    setRegisterModalOpen(false);
     setAuthModalOpen(true);
   };
 
-  const handleAuthClose = () => {
+  const openAuthSuccess = () => {
+    setRegisterModalOpen(false);
+    setSuccessModalOpen(true);
+  };
+
+  const closeAuthModal = () => {
     setAuthModalOpen(false);
+  };
+
+  const closeRegisterModal = () => {
+    setRegisterModalOpen(false);
+  };
+
+  const closeSuccessModal = () => {
+    setSuccessModalOpen(false);
   };
 
   const updateProfileData = (newProfileData) => {
@@ -127,7 +150,7 @@ export function Header() {
                 {windowWidth < 790 ? <img src={user} alt="user" /> : 'Профиль'}
               </button>
             ) : (
-              <button className="header-btn" onClick={handleAuthOpen}>
+              <button className="header-btn" onClick={openAuthModal}>
                 {windowWidth < 790 ? <img src={user} alt="user" /> : 'Войти'}
               </button>
             )}
@@ -142,8 +165,21 @@ export function Header() {
 
       <Auth
         open={isAuthModalOpen}
-        onClose={handleAuthClose}
+        onClose={closeAuthModal}
+        openRegisterModal={openRegisterModal}
         updateProfileData={updateProfileData}
+      />
+      <Register
+        openRegister={isRegisterModalOpen}
+        onCloseRegister={closeRegisterModal}
+        openAuthModal={openAuthModal}
+        openAuthSuccess={openAuthSuccess}
+      />
+      <RegisterSuccess
+        openSuccess={isSuccessModalOpen}
+        onCloseSuccess={closeSuccessModal}
+        openAuthModal={openAuthModal}
+        openAuthSuccess={openAuthSuccess}
       />
     </header>
   );

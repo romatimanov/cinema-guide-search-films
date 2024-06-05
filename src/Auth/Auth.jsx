@@ -7,7 +7,6 @@ import './auth.css';
 import { ReactComponent as MailIcon } from '../image/mail.svg';
 import { ReactComponent as PassIcon } from '../image/pass.svg';
 import { Button } from '../Button/Button';
-import { Register } from '../Register/Register';
 
 const StyledModal = styled(Modal)`
   display: flex;
@@ -16,12 +15,11 @@ const StyledModal = styled(Modal)`
   z-index: 400;
 `;
 
-export function Auth({ open, onClose, updateProfileData }) {
+export function Auth({ open, onClose, openRegisterModal, updateProfileData }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [registerOpen, setRegisterOpen] = useState(false);
 
   const handleEmailChange = (e) => {
     const { value } = e.target;
@@ -80,66 +78,58 @@ export function Auth({ open, onClose, updateProfileData }) {
 
   const handleOpenRegister = () => {
     onClose();
-    setRegisterOpen(true);
+    openRegisterModal();
   };
 
   return (
-    <>
-      <StyledModal open={open} onClose={onClose}>
-        <Fade in={open}>
-          <div className="auth-modal">
-            <div className="auth-logo">
-              <img src={logo} alt="logo" />
-            </div>
-            <form className="form-auth" onSubmit={handleLogin}>
-              <div className="input-wrapper">
-                <MailIcon
-                  className={`auth-icon ${emailError ? 'error-icon' : ''}`}
-                />
-                <input
-                  className={`auth-input ${emailError ? 'error' : ''}`}
-                  type="text"
-                  placeholder="Email"
-                  name="email"
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-              </div>
-              <div className="input-wrapper">
-                <PassIcon
-                  className={`auth-icon ${passwordError ? 'error-icon' : ''}`}
-                />
-                <input
-                  className={`auth-input ${passwordError ? 'error' : ''}`}
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                />
-              </div>
-              <Button text={'Войти'} type="submit" />
-            </form>
-            <button
-              className="auth-register"
-              onClick={() => {
-                handleOpenRegister();
-              }}
-            >
-              Регистрация
-            </button>
-            <button className="auth-close" onClick={onClose}>
-              <img src={close} alt="close" />
-            </button>
+    <StyledModal open={open} onClose={onClose}>
+      <Fade in={open}>
+        <div className="auth-modal">
+          <div className="auth-logo">
+            <img src={logo} alt="logo" />
           </div>
-        </Fade>
-      </StyledModal>
-      {registerOpen && (
-        <Register
-          openRegister={registerOpen}
-          onCloseRegister={() => setRegisterOpen(false)}
-        />
-      )}
-    </>
+          <form className="form-auth" onSubmit={handleLogin}>
+            <div className="input-wrapper">
+              <MailIcon
+                className={`auth-icon ${emailError ? 'error-icon' : ''}`}
+              />
+              <input
+                className={`auth-input ${emailError ? 'error' : ''}`}
+                type="text"
+                placeholder="Email"
+                name="email"
+                value={email}
+                onChange={handleEmailChange}
+              />
+            </div>
+            <div className="input-wrapper">
+              <PassIcon
+                className={`auth-icon ${passwordError ? 'error-icon' : ''}`}
+              />
+              <input
+                className={`auth-input ${passwordError ? 'error' : ''}`}
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+            </div>
+            <Button text={'Войти'} type="submit" />
+          </form>
+          <button
+            className="auth-register"
+            onClick={() => {
+              handleOpenRegister();
+            }}
+          >
+            Регистрация
+          </button>
+          <button className="auth-close" onClick={onClose}>
+            <img src={close} alt="close" />
+          </button>
+        </div>
+      </Fade>
+    </StyledModal>
   );
 }
