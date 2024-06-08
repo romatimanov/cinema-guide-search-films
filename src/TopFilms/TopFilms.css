@@ -28,6 +28,7 @@
   transition: 0.3s all;
   @media (max-width: 790px) {
     height: 336px;
+    margin-right: 20px;
   }
 }
 .top-poster:hover {
@@ -53,12 +54,13 @@
   color: #6a5dc2;
   text-align: center;
 }
-.slick-slide {
-  width: 224px !important;
-  height: 336px !important;
-  margin-right: 20px;
-  margin-left: 20px;
-}
+
 .slick-list {
   overflow: visible !important;
+}
+.top-main .slick-slide {
+  width: 224px !important;
+  height: 336px !important;
+  margin-left: 20px;
+  margin-right: 20px;
 }

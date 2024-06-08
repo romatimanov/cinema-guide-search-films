@@ -44,24 +44,17 @@ export function TopFilms() {
     });
   };
 
-  if (isMobile) {
-    return (
-      <div className="container">
-        <div className="top-content">
-          <h2 className="top-title">Топ 10 Фильмов</h2>
-          <div className="top-main">
-            <Slider {...sliderSettings}>{renderFilmList()}</Slider>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="container">
       <div className="top-content">
         <h2 className="top-title">Топ 10 Фильмов</h2>
-        <div className="top-main">{renderFilmList()}</div>
+        <div className="top-main">
+          {isMobile ? (
+            <Slider {...sliderSettings}>{renderFilmList()}</Slider>
+          ) : (
+            renderFilmList()
+          )}
+        </div>
       </div>
     </div>
   );
@@ -69,9 +62,9 @@ export function TopFilms() {
 
 const sliderSettings = {
   dots: false,
-  infinite: false,
+  infinite: true,
   arrows: false,
   speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
+  slidesToShow: 1.5,
+  slidesToScroll: 1.5,
 };
